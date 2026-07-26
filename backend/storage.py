@@ -2,12 +2,13 @@
 from __future__ import annotations
 
 import json
+import os
 from pathlib import Path
 from datetime import datetime, timezone
 
 from .models import Story, StorySummary, summary
 
-DATA_DIR = Path(__file__).parent / "data" / "stories"
+DATA_DIR = Path(os.getenv("STORY_DATA_DIR", Path(__file__).parent / "data" / "stories"))
 
 
 def ensure_data_dir() -> None:
