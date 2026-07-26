@@ -1,0 +1,15 @@
+.env
+.DS_Store
+.ppt_build/
+*.pptx.inspect.ndjson
+docs/_rendered/
+docs/_rendered_v2/
+*.tsbuildinfo
+frontend/vite.config.js
+frontend/vite.config.d.ts
+__pycache__/
+*.py[cod]
+.pytest_cache/
+backend/data/stories/*.json
+frontend/node_modules/
+frontend/dist/
