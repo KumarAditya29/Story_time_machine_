@@ -1,0 +1,13 @@
+command: ['uvicorn', 'backend.main:app']
+resources:
+  - name: openai_api_key
+    secret:
+      scope: storytime-machine
+      key: openai-api-key
+env:
+  - name: OPENAI_API_KEY
+    valueFrom: openai_api_key
+  - name: OPENAI_MODEL
+    value: gpt-4o-mini
+  - name: STORY_DATA_DIR
+    value: /tmp/storytime-machine/stories

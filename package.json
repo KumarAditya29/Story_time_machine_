@@ -1,0 +1,7 @@
+{
+  "name": "storytime-machine-databricks-app",
+  "private": true,
+  "scripts": {
+    "build": "npm --prefix frontend ci && npm --prefix frontend run build && mkdir -p backend/static && cp -R frontend/dist/. backend/static/"
+  }
+}

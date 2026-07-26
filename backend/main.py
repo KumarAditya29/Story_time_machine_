@@ -4,9 +4,11 @@ from contextlib import asynccontextmanager
 from datetime import datetime, timezone
 import os
 from uuid import uuid4
+from pathlib import Path
 
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 
 from .generation import analyze_story
@@ -114,3 +116,10 @@ def graph(story_id: str):
         "edges": [{"id": f"{left}-{right}", "source": left, "target": right, **data}
                   for left, right, data in graph_data.edges(data=True)],
     }
+
+
+# Databricks Apps serves this FastAPI process as the single public application.
+# The frontend build is copied to backend/static during the Databricks build step.
+static_dir = Path(__file__).parent / "static"
+if static_dir.exists():
+    app.mount("/", StaticFiles(directory=static_dir, html=True), name="frontend")
