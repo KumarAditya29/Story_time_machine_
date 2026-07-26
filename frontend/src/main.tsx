@@ -11,7 +11,9 @@ type Audit = { scene_id: string; action: string; reason: string; hop: number; be
 type Version = { version_id: string; label: string; created_at: string; changed_scene_ids: string[]; audit: Audit[] };
 type Story = { story_id:string; title:string; genre:string; logline:string; cover_gradient:string; scenes:Scene[]; dependencies: {source_scene_id:string;target_scene_id:string;kind:string;reason:string;confidence:number}[]; versions:Version[] };
 type Summary = Pick<Story, 'story_id'|'title'|'genre'|'logline'|'cover_gradient'> & {scene_count:number};
-const API = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8000/api';
+// Same-origin is production-safe for a single Databricks App; local Vite still
+// overrides this through VITE_API_BASE_URL in frontend/.env.
+const API = import.meta.env.VITE_API_BASE_URL || '/api';
 
 function App() {
   const [stories, setStories] = useState<Summary[]>([]); const [story, setStory] = useState<Story | null>(null);
